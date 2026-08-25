@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#f5f5f5"/>
+  
+  <!-- Gradient overlay -->
+  <defs>
+    <linearGradient id="eventGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1B5E20;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#F9A825;stop-opacity:0.1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#eventGrad)"/>
+  
+  <!-- Center circle with icon -->
+  <circle cx="200" cy="150" r="40" fill="#1B5E20" opacity="0.2"/>
+  
+  <!-- Calendar/Event icon -->
+  <g transform="translate(200, 150)" stroke="#1B5E20" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Calendar grid -->
+    <rect x="-15" y="-12" width="30" height="24" rx="2"/>
+    <!-- Top bar -->
+    <line x1="-15" y1="-2" x2="15" y2="-2"/>
+    <!-- Grid lines -->
+    <line x1="-5" y1="-2" x2="-5" y2="12"/>
+    <line x1="5" y1="-2" x2="5" y2="12"/>
+    <!-- Date squares -->
+    <rect x="-12" y="0" width="4" height="4" fill="#1B5E20" opacity="0.3"/>
+    <rect x="-4" y="0" width="4" height="4" fill="#1B5E20" opacity="0.3"/>
+    <rect x="4" y="0" width="4" height="4" fill="#1B5E20" opacity="0.3"/>
+    <rect x="-12" y="7" width="4" height="4" fill="#1B5E20" opacity="0.3"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="200" y="210" font-family="sans-serif" font-size="14" fill="#555555" text-anchor="middle" font-weight="500">Event Image</text>
+  <text x="200" y="235" font-family="sans-serif" font-size="12" fill="#999999" text-anchor="middle">No image available</text>
+</svg>

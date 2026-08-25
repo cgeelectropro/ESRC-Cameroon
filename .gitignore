@@ -1,0 +1,12 @@
+# Contains API keys / auth headers for MCP servers (Render, etc.)
+.mcp.json
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Dependencies / build output (each subproject also ignores these)
+node_modules/
+dist/
+.next/
