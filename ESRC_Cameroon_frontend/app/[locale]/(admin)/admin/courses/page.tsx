@@ -43,6 +43,9 @@ export default function AdminCoursesPage() {
   const locale = useLocale()
   const [courses, setCourses] = useState<CourseRow[]>([])
   const [total, setTotal] = useState(0)
+  const [page, setPage] = useState(1)
+  const [pages, setPages] = useState(1)
+  const PAGE_SIZE = 20
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [activeTab, setActiveTab] = useState('ALL')
@@ -69,7 +72,7 @@ export default function AdminCoursesPage() {
   const load = async () => {
     setLoading(true)
     setSelected(new Set())
-    const params: Record<string, string> = {}
+    const params: Record<string, string> = { page: String(page), limit: String(PAGE_SIZE) }
     if (search) params.search = search
     if (activeTab !== 'ALL') params.status = activeTab
     const res = await apiClient.getAdminCourses(params)
@@ -78,6 +81,7 @@ export default function AdminCoursesPage() {
       const d = res.data as any
       setCourses(Array.isArray(d) ? d : d.items || [])
       setTotal(d.total ?? 0)
+      setPages(d.pages ?? 1)
     }
   }
 
@@ -87,7 +91,8 @@ export default function AdminCoursesPage() {
     })
   }, [])
 
-  useEffect(() => { load() }, [activeTab, search])
+  useEffect(() => { setPage(1) }, [activeTab, search])
+  useEffect(() => { load() }, [activeTab, search, page])
 
   const quickStatus = async (id: string, status: string) => {
     await apiClient.updateAdminCourse(id, { status })
@@ -255,6 +260,21 @@ export default function AdminCoursesPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          )}
+          {!loading && pages > 1 && (
+            <div className="flex items-center justify-between mt-4">
+              <p className="text-sm text-muted-foreground">
+                Page {page} of {pages}
+              </p>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setPage((p) => p - 1)}>
+                  Previous
+                </Button>
+                <Button variant="outline" size="sm" disabled={page >= pages} onClick={() => setPage((p) => p + 1)}>
+                  Next
+                </Button>
+              </div>
             </div>
           )}
         </div>

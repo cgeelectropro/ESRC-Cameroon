@@ -32,7 +32,7 @@ export default function CoursesPage() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await apiClient.getCourses()
+        const res = await apiClient.getCourses({ limit: '100' })
         if (res.success && res.data) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const raw = res.data as any
