@@ -47,7 +47,7 @@ export function InstructorSidebar() {
         <div className="border-t border-border p-4">
           <div className="flex items-center justify-between px-2">
             <span className="text-sm text-muted-foreground font-medium">Notifications</span>
-            <NotificationBell />
+            <NotificationBell openDirection="up" />
           </div>
         </div>
       </div>

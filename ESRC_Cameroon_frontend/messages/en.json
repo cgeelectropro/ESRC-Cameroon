@@ -176,7 +176,16 @@
     "chooseRole": "I am a...",
     "continue": "Continue",
     "back": "Back",
-    "interests": "What interests you?",
+    "interests": {
+      "entrepreneurship": "Entrepreneurship",
+      "developmentPolicy": "Development Policy",
+      "socialResearch": "Social Research",
+      "agriculture": "Agriculture & Agribusiness",
+      "technology": "Technology & Innovation",
+      "womenBusiness": "Women in Business",
+      "youthEmpowerment": "Youth Empowerment",
+      "finance": "Finance & Investment"
+    },
     "interestsDesc": "Select categories for personalized course recommendations.",
     "goals": "What do you want to achieve?",
     "alreadyHaveAccount": "Already have an account?",
@@ -213,16 +222,6 @@
     "joinNextGen": "Join NextGen",
     "almostThere": "Almost there, {name}!",
     "fewMoreDetails": "Just a few more details to complete your account.",
-    "interests": {
-      "entrepreneurship": "Entrepreneurship",
-      "developmentPolicy": "Development Policy",
-      "socialResearch": "Social Research",
-      "agriculture": "Agriculture & Agribusiness",
-      "technology": "Technology & Innovation",
-      "womenBusiness": "Women in Business",
-      "youthEmpowerment": "Youth Empowerment",
-      "finance": "Finance & Investment"
-    },
     "professionalProfile": "Professional Profile",
     "professionalProfileDesc": "This will be reviewed by our admin team before approval.",
     "professionalTitle": "Professional Title *",
@@ -646,5 +645,138 @@
   },
   "partners": {
     "trustedBy": "Trusted by Leading Organizations"
+  },
+  "toolkit": {
+    "tabs": {
+      "canvas": "Canvas",
+      "financial": "Financial",
+      "loan": "Loan",
+      "market": "Market",
+      "ai": "AI Validator",
+      "pitch": "Pitch Deck",
+      "reg": "Registration",
+      "funding": "Funding Directory"
+    },
+    "sectionTitles": {
+      "canvas": "Business Model Canvas",
+      "financial": "Financial Projections",
+      "loan": "Loan Readiness Score",
+      "market": "Market Sizing Calculator",
+      "ai": "AI Idea Validator",
+      "pitch": "Pitch Deck Builder",
+      "reg": "Business Registration Wizard",
+      "funding": "Funding Directory — Find Funding"
+    },
+    "canvas": {
+      "keyPartners": "Key Partners",
+      "keyPartnersPlaceholder": "List key partners",
+      "keyResources": "Key Resources",
+      "keyResourcesPlaceholder": "List key resources",
+      "valueProposition": "Value Proposition",
+      "valuePropositionPlaceholder": "What value do you provide?",
+      "customerSegments": "Customer Segments",
+      "customerSegmentsPlaceholder": "Who are your customers?",
+      "channels": "Channels",
+      "channelsPlaceholder": "How do you reach customers?"
+    },
+    "financial": {
+      "startupCost": "Startup Cost (XAF)",
+      "monthlyOpCost": "Monthly Operating Cost (XAF)",
+      "monthlyRevenue": "Monthly Revenue (XAF)",
+      "revenue12m": "12-Month Revenue",
+      "netProfitY1": "Net Profit (Year 1)",
+      "breakevenMonths": "Breakeven (Months)"
+    },
+    "loan": {
+      "businessPlan": "Business Plan",
+      "financialProjections": "Financial Projections",
+      "collateral": "Collateral",
+      "creditHistory": "Credit History",
+      "industryExperience": "Industry Experience",
+      "weightLabel": "Weight: {weight}%",
+      "readinessScore": "Loan Readiness Score",
+      "excellent": "✓ Excellent - Ready to apply",
+      "good": "~ Good - Strengthen some areas",
+      "needsImprovement": "✗ Needs improvement"
+    },
+    "market": {
+      "totalPopulation": "Total Population / Market (TAM base)",
+      "targetPercent": "Target % of Population",
+      "realisticPenetration": "Realistic Penetration %",
+      "tam": "TAM",
+      "tamDesc": "Total Addressable Market",
+      "sam": "SAM",
+      "samDesc": "Serviceable Addressable Market",
+      "som": "SOM",
+      "somDesc": "Serviceable Obtainable Market"
+    },
+    "ai": {
+      "describeIdea": "Describe your business idea",
+      "ideaPlaceholder": "e.g., A mobile platform connecting smallholder farmers in Cameroon to urban buyers, reducing post-harvest losses through real-time price discovery and logistics coordination...",
+      "analysing": "Analysing with AI...",
+      "validate": "Validate Business Idea",
+      "overallScore": "Overall Score",
+      "marketFit": "Market Fit",
+      "feasibility": "Feasibility",
+      "strengths": "Strengths",
+      "risks": "Risks",
+      "suggestions": "Suggestions",
+      "nextSteps": "Next Steps",
+      "emptyIdeaError": "Please describe your idea in at least a few sentences.",
+      "validationFailed": "Validation failed. Please try again.",
+      "serviceUnreachable": "Could not reach the AI service. Please try again."
+    },
+    "pitch": {
+      "steps": {
+        "problem": "Problem",
+        "solution": "Solution",
+        "market": "Market",
+        "traction": "Traction",
+        "ask": "Ask"
+      },
+      "stepLabel": "Step {n}: {name}",
+      "describePlaceholder": "Describe your {field}...",
+      "previous": "Previous",
+      "next": "Next",
+      "exportPitch": "Export Pitch",
+      "exported": "Pitch deck saved and exported!"
+    },
+    "reg": {
+      "steps": {
+        "name": "Business Name",
+        "sector": "Sector",
+        "legalForm": "Legal Form",
+        "contact": "Contact",
+        "confirm": "Confirm"
+      },
+      "fields": {
+        "name": {
+          "label": "Business Name",
+          "placeholder": "Enter your business name"
+        },
+        "sector": {
+          "label": "Sector",
+          "placeholder": "e.g. Agriculture, Tech"
+        },
+        "legalForm": {
+          "label": "Legal Form",
+          "placeholder": "Sarl, SA, Sole proprietor"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "contact@business.cm"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "+237 6XX XXX XXX"
+        }
+      },
+      "previous": "Previous",
+      "next": "Next",
+      "exportChecklist": "Export Checklist",
+      "exportedToast": "Registration checklist exported! Bring this to the CFCE office."
+    },
+    "pageTitle": "Entrepreneur Toolkit",
+    "pageSubtitle": "Interactive tools to help you plan, calculate, and validate your business ideas"
   }
 }

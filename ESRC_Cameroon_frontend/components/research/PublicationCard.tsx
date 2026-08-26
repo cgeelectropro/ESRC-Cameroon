@@ -17,7 +17,7 @@ export function PublicationCard({ publication }: PublicationCardProps) {
       <CardContent className="pt-6">
         <Badge variant="outline" className="mb-3">{publication.type.replace('_', ' ')}</Badge>
         <Link href={`/research/${publication.id}`}>
-          <h3 className="font-display text-lg font-semibold text-foreground hover:text-primary transition-colors mb-2">
+          <h3 className="font-display text-base font-semibold text-foreground hover:text-primary transition-colors mb-2">
             {publication.title}
           </h3>
         </Link>

@@ -21,7 +21,7 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
               <span className="text-sm text-muted-foreground">{opportunity.organization}</span>
             </div>
             <Link href={`/opportunities/${opportunity.id}`}>
-              <h3 className="font-display text-lg font-semibold text-foreground hover:text-primary transition-colors mb-2">
+              <h3 className="font-display text-base font-semibold text-foreground hover:text-primary transition-colors mb-2">
                 {opportunity.title}
               </h3>
             </Link>

@@ -176,7 +176,16 @@
     "chooseRole": "Je suis...",
     "continue": "Continuer",
     "back": "Retour",
-    "interests": "Qu'est-ce qui vous intéresse ?",
+    "interests": {
+      "entrepreneurship": "Entrepreneuriat",
+      "developmentPolicy": "Politique de Développement",
+      "socialResearch": "Recherche Sociale",
+      "agriculture": "Agriculture & Agro-industrie",
+      "technology": "Technologie & Innovation",
+      "womenBusiness": "Femmes en Affaires",
+      "youthEmpowerment": "Autonomisation des Jeunes",
+      "finance": "Finance & Investissement"
+    },
     "interestsDesc": "Sélectionnez les catégories pour des recommandations personnalisées.",
     "goals": "Que voulez-vous accomplir ?",
     "alreadyHaveAccount": "Vous avez déjà un compte ?",
@@ -213,16 +222,6 @@
     "joinNextGen": "Rejoindre NextGen",
     "almostThere": "Presque là, {name} !",
     "fewMoreDetails": "Encore quelques détails pour compléter votre compte.",
-    "interests": {
-      "entrepreneurship": "Entrepreneuriat",
-      "developmentPolicy": "Politique de Développement",
-      "socialResearch": "Recherche Sociale",
-      "agriculture": "Agriculture & Agro-industrie",
-      "technology": "Technologie & Innovation",
-      "womenBusiness": "Femmes en Affaires",
-      "youthEmpowerment": "Autonomisation des Jeunes",
-      "finance": "Finance & Investissement"
-    },
     "professionalProfile": "Profil Professionnel",
     "professionalProfileDesc": "Ceci sera examiné par notre équipe admin avant approbation.",
     "professionalTitle": "Titre Professionnel *",
@@ -646,5 +645,138 @@
   },
   "partners": {
     "trustedBy": "Approuvé par les Grandes Organisations"
+  },
+  "toolkit": {
+    "tabs": {
+      "canvas": "Canevas",
+      "financial": "Finances",
+      "loan": "Prêt",
+      "market": "Marché",
+      "ai": "Validateur IA",
+      "pitch": "Argumentaire",
+      "reg": "Inscription",
+      "funding": "Sources de Financement"
+    },
+    "sectionTitles": {
+      "canvas": "Modèle de Canevas d'Affaires",
+      "financial": "Projections Financières",
+      "loan": "Score de Préparation au Prêt",
+      "market": "Calculateur de Taille de Marché",
+      "ai": "Validateur d'Idée par IA",
+      "pitch": "Créateur d'Argumentaire",
+      "reg": "Assistant d'Inscription d'Entreprise",
+      "funding": "Sources de Financement"
+    },
+    "canvas": {
+      "keyPartners": "Partenaires Clés",
+      "keyPartnersPlaceholder": "Listez vos partenaires clés",
+      "keyResources": "Ressources Clés",
+      "keyResourcesPlaceholder": "Listez vos ressources clés",
+      "valueProposition": "Proposition de Valeur",
+      "valuePropositionPlaceholder": "Quelle valeur offrez-vous ?",
+      "customerSegments": "Segments de Clientèle",
+      "customerSegmentsPlaceholder": "Qui sont vos clients ?",
+      "channels": "Canaux",
+      "channelsPlaceholder": "Comment atteignez-vous vos clients ?"
+    },
+    "financial": {
+      "startupCost": "Coût de Démarrage (XAF)",
+      "monthlyOpCost": "Coût d'Exploitation Mensuel (XAF)",
+      "monthlyRevenue": "Revenu Mensuel (XAF)",
+      "revenue12m": "Revenu sur 12 Mois",
+      "netProfitY1": "Bénéfice Net (Année 1)",
+      "breakevenMonths": "Seuil de Rentabilité (Mois)"
+    },
+    "loan": {
+      "businessPlan": "Plan d'Affaires",
+      "financialProjections": "Projections Financières",
+      "collateral": "Garanties",
+      "creditHistory": "Historique de Crédit",
+      "industryExperience": "Expérience du Secteur",
+      "weightLabel": "Poids : {weight}%",
+      "readinessScore": "Score de Préparation au Prêt",
+      "excellent": "✓ Excellent - Prêt à postuler",
+      "good": "~ Bon - Renforcez certains points",
+      "needsImprovement": "✗ Nécessite des améliorations"
+    },
+    "market": {
+      "totalPopulation": "Population Totale / Marché (base TAM)",
+      "targetPercent": "% Cible de la Population",
+      "realisticPenetration": "% de Pénétration Réaliste",
+      "tam": "TAM",
+      "tamDesc": "Marché Total Adressable",
+      "sam": "SAM",
+      "samDesc": "Marché Adressable Desservable",
+      "som": "SOM",
+      "somDesc": "Marché Obtenable Desservable"
+    },
+    "ai": {
+      "describeIdea": "Décrivez votre idée d'entreprise",
+      "ideaPlaceholder": "ex. : Une plateforme mobile reliant les petits agriculteurs du Cameroun aux acheteurs urbains, réduisant les pertes post-récolte grâce à la découverte des prix en temps réel et à la coordination logistique...",
+      "analysing": "Analyse en cours avec l'IA...",
+      "validate": "Valider l'Idée d'Entreprise",
+      "overallScore": "Score Global",
+      "marketFit": "Adéquation au Marché",
+      "feasibility": "Faisabilité",
+      "strengths": "Points Forts",
+      "risks": "Risques",
+      "suggestions": "Suggestions",
+      "nextSteps": "Prochaines Étapes",
+      "emptyIdeaError": "Veuillez décrire votre idée en au moins quelques phrases.",
+      "validationFailed": "Échec de la validation. Veuillez réessayer.",
+      "serviceUnreachable": "Impossible de joindre le service IA. Veuillez réessayer."
+    },
+    "pitch": {
+      "steps": {
+        "problem": "Problème",
+        "solution": "Solution",
+        "market": "Marché",
+        "traction": "Traction",
+        "ask": "Demande"
+      },
+      "stepLabel": "Étape {n} : {name}",
+      "describePlaceholder": "Décrivez votre {field}...",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "exportPitch": "Exporter l'Argumentaire",
+      "exported": "Argumentaire enregistré et exporté !"
+    },
+    "reg": {
+      "steps": {
+        "name": "Nom de l'Entreprise",
+        "sector": "Secteur",
+        "legalForm": "Forme Juridique",
+        "contact": "Contact",
+        "confirm": "Confirmer"
+      },
+      "fields": {
+        "name": {
+          "label": "Nom de l'Entreprise",
+          "placeholder": "Entrez le nom de votre entreprise"
+        },
+        "sector": {
+          "label": "Secteur",
+          "placeholder": "ex. Agriculture, Tech"
+        },
+        "legalForm": {
+          "label": "Forme Juridique",
+          "placeholder": "Sarl, SA, Entreprise individuelle"
+        },
+        "email": {
+          "label": "E-mail",
+          "placeholder": "contact@entreprise.cm"
+        },
+        "phone": {
+          "label": "Téléphone",
+          "placeholder": "+237 6XX XXX XXX"
+        }
+      },
+      "previous": "Précédent",
+      "next": "Suivant",
+      "exportChecklist": "Exporter la Liste de Contrôle",
+      "exportedToast": "Liste de contrôle d'inscription exportée ! Apportez-la au bureau du CFCE."
+    },
+    "pageTitle": "Boîte à Outils Entrepreneuriale",
+    "pageSubtitle": "Outils interactifs pour planifier, calculer et valider vos idées d'affaires"
   }
 }

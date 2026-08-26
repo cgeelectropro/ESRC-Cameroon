@@ -54,7 +54,7 @@ export function CourseCard({ course }: CourseCardProps) {
         {/* Content */}
         <div className="p-4 flex flex-col flex-grow">
           {/* Title */}
-          <h3 className="font-display font-semibold text-lg mb-2 line-clamp-2 text-foreground">
+          <h3 className="font-display font-semibold text-base mb-2 line-clamp-2 text-foreground">
             {course.title}
           </h3>
 

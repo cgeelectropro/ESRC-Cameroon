@@ -14,7 +14,7 @@ export interface AppNotification {
   data?: Record<string, unknown>
 }
 
-const BACKEND_WS_URL = process.env.NEXT_PUBLIC_NESTJS_WS_URL || 'https://esrc-nestjs-production.up.railway.app'
+const BACKEND_WS_URL = process.env.NEXT_PUBLIC_NESTJS_WS_URL || 'https://esrc-cameroon-backend.onrender.com'
 const POLL_INTERVAL = 60_000 // 60s fallback polling
 
 export function useNotifications(isAuthenticated: boolean) {

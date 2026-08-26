@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -13,6 +14,7 @@ import { apiClient } from '@/lib/api-client'
 import { toast } from 'sonner'
 
 export function BusinessModelCanvas() {
+  const t = useTranslations('toolkit.canvas')
   const [canvas, setCanvas] = useState({
     keyPartners: '',
     keyActivities: '',
@@ -29,52 +31,52 @@ export function BusinessModelCanvas() {
     <div className="grid grid-cols-3 gap-4 bg-card p-6 rounded-lg border">
       <div className="col-span-1 space-y-4">
         <div>
-          <label className="text-sm font-medium">Key Partners</label>
+          <label className="text-sm font-medium">{t('keyPartners')}</label>
           <textarea
             value={canvas.keyPartners}
             onChange={(e) => setCanvas({ ...canvas, keyPartners: e.target.value })}
             className="w-full h-24 p-2 border rounded text-sm"
-            placeholder="List key partners"
+            placeholder={t('keyPartnersPlaceholder')}
           />
         </div>
         <div>
-          <label className="text-sm font-medium">Key Resources</label>
+          <label className="text-sm font-medium">{t('keyResources')}</label>
           <textarea
             value={canvas.keyResources}
             onChange={(e) => setCanvas({ ...canvas, keyResources: e.target.value })}
             className="w-full h-24 p-2 border rounded text-sm"
-            placeholder="List key resources"
+            placeholder={t('keyResourcesPlaceholder')}
           />
         </div>
       </div>
       <div className="col-span-1 space-y-4">
         <div className="border-2 border-esrc-green-300 p-4 rounded bg-esrc-green-50">
-          <label className="text-sm font-bold">Value Proposition</label>
+          <label className="text-sm font-bold">{t('valueProposition')}</label>
           <textarea
             value={canvas.valueProposition}
             onChange={(e) => setCanvas({ ...canvas, valueProposition: e.target.value })}
             className="w-full h-32 p-2 border rounded text-sm mt-2"
-            placeholder="What value do you provide?"
+            placeholder={t('valuePropositionPlaceholder')}
           />
         </div>
       </div>
       <div className="col-span-1 space-y-4">
         <div>
-          <label className="text-sm font-medium">Customer Segments</label>
+          <label className="text-sm font-medium">{t('customerSegments')}</label>
           <textarea
             value={canvas.customerSegments}
             onChange={(e) => setCanvas({ ...canvas, customerSegments: e.target.value })}
             className="w-full h-24 p-2 border rounded text-sm"
-            placeholder="Who are your customers?"
+            placeholder={t('customerSegmentsPlaceholder')}
           />
         </div>
         <div>
-          <label className="text-sm font-medium">Channels</label>
+          <label className="text-sm font-medium">{t('channels')}</label>
           <textarea
             value={canvas.channels}
             onChange={(e) => setCanvas({ ...canvas, channels: e.target.value })}
             className="w-full h-24 p-2 border rounded text-sm"
-            placeholder="How do you reach customers?"
+            placeholder={t('channelsPlaceholder')}
           />
         </div>
       </div>
@@ -83,6 +85,7 @@ export function BusinessModelCanvas() {
 }
 
 export function FinancialCalculator() {
+  const t = useTranslations('toolkit.financial')
   const [startup, setStartup] = useState(5000000)
   const [monthlyOps, setMonthlyOps] = useState(500000)
   const [monthlyRevenue, setMonthlyRevenue] = useState(1500000)
@@ -97,7 +100,7 @@ export function FinancialCalculator() {
     <div className="bg-card p-6 rounded-lg border space-y-6">
       <div className="grid grid-cols-3 gap-4">
         <div>
-          <label className="text-sm font-medium">Startup Cost (XAF)</label>
+          <label className="text-sm font-medium">{t('startupCost')}</label>
           <Input
             type="number"
             value={startup}
@@ -106,7 +109,7 @@ export function FinancialCalculator() {
           />
         </div>
         <div>
-          <label className="text-sm font-medium">Monthly Operating Cost (XAF)</label>
+          <label className="text-sm font-medium">{t('monthlyOpCost')}</label>
           <Input
             type="number"
             value={monthlyOps}
@@ -115,7 +118,7 @@ export function FinancialCalculator() {
           />
         </div>
         <div>
-          <label className="text-sm font-medium">Monthly Revenue (XAF)</label>
+          <label className="text-sm font-medium">{t('monthlyRevenue')}</label>
           <Input
             type="number"
             value={monthlyRevenue}
@@ -128,7 +131,7 @@ export function FinancialCalculator() {
       <div className="grid grid-cols-3 gap-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">12-Month Revenue</CardTitle>
+            <CardTitle className="text-sm">{t('revenue12m')}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-esrc-green-700">{(totalRevenue / 1000000).toFixed(1)}M XAF</p>
@@ -136,7 +139,7 @@ export function FinancialCalculator() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Net Profit (Year 1)</CardTitle>
+            <CardTitle className="text-sm">{t('netProfitY1')}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className={`text-2xl font-bold ${netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
@@ -146,7 +149,7 @@ export function FinancialCalculator() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Breakeven (Months)</CardTitle>
+            <CardTitle className="text-sm">{t('breakevenMonths')}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-esrc-gold-500">{breakeven.toFixed(1)}</p>
@@ -158,12 +161,13 @@ export function FinancialCalculator() {
 }
 
 export function LoanReadinessScore() {
+  const t = useTranslations('toolkit.loan')
   const criteria = [
-    { name: 'Business Plan', weight: 20 },
-    { name: 'Financial Projections', weight: 20 },
-    { name: 'Collateral', weight: 15 },
-    { name: 'Credit History', weight: 25 },
-    { name: 'Industry Experience', weight: 20 },
+    { name: t('businessPlan'), weight: 20 },
+    { name: t('financialProjections'), weight: 20 },
+    { name: t('collateral'), weight: 15 },
+    { name: t('creditHistory'), weight: 25 },
+    { name: t('industryExperience'), weight: 20 },
   ]
   const [scores, setScores] = useState([8, 7, 6, 8, 7])
   const weightedSum = criteria.reduce((acc, c, i) => acc + (scores[i] ?? 0) * c.weight, 0)
@@ -175,7 +179,7 @@ export function LoanReadinessScore() {
         {criteria.map((c, i) => (
           <div key={i}>
             <div className="flex justify-between mb-2">
-              <Label className="text-sm font-medium">{c.name} (Weight: {c.weight}%)</Label>
+              <Label className="text-sm font-medium">{c.name} ({t('weightLabel', { weight: c.weight })})</Label>
               <span className="text-sm font-bold text-esrc-green-700">{scores[i] ?? 0}/10</span>
             </div>
             <Slider
@@ -190,10 +194,10 @@ export function LoanReadinessScore() {
       </div>
 
       <div className="bg-gradient-to-r from-esrc-green-50 to-esrc-gold-50 p-4 rounded">
-        <p className="text-sm text-muted-foreground mb-2">Loan Readiness Score</p>
+        <p className="text-sm text-muted-foreground mb-2">{t('readinessScore')}</p>
         <p className="text-4xl font-bold text-esrc-green-700">{overall.toFixed(1)}/10</p>
         <p className="text-sm mt-2">
-          {overall >= 8 ? '✓ Excellent - Ready to apply' : overall >= 6 ? '~ Good - Strengthen some areas' : '✗ Needs improvement'}
+          {overall >= 8 ? t('excellent') : overall >= 6 ? t('good') : t('needsImprovement')}
         </p>
       </div>
     </div>
@@ -201,6 +205,7 @@ export function LoanReadinessScore() {
 }
 
 export function MarketSizingCalculator() {
+  const t = useTranslations('toolkit.market')
   const [totalPop, setTotalPop] = useState(50000000)
   const [targetPct, setTargetPct] = useState(10)
   const [penetration, setPenetration] = useState(5)
@@ -212,7 +217,7 @@ export function MarketSizingCalculator() {
     <div className="bg-card p-6 rounded-lg border space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
-          <Label>Total Population / Market (TAM base)</Label>
+          <Label>{t('totalPopulation')}</Label>
           <Input
             type="number"
             value={totalPop}
@@ -221,7 +226,7 @@ export function MarketSizingCalculator() {
           />
         </div>
         <div>
-          <Label>Target % of Population</Label>
+          <Label>{t('targetPercent')}</Label>
           <Input
             type="number"
             value={targetPct}
@@ -230,7 +235,7 @@ export function MarketSizingCalculator() {
           />
         </div>
         <div>
-          <Label>Realistic Penetration %</Label>
+          <Label>{t('realisticPenetration')}</Label>
           <Input
             type="number"
             value={penetration}
@@ -242,8 +247,8 @@ export function MarketSizingCalculator() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">TAM</CardTitle>
-            <CardDescription>Total Addressable Market</CardDescription>
+            <CardTitle className="text-sm">{t('tam')}</CardTitle>
+            <CardDescription>{t('tamDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-xl font-bold text-esrc-green-700">{tam.toLocaleString()}</p>
@@ -251,8 +256,8 @@ export function MarketSizingCalculator() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">SAM</CardTitle>
-            <CardDescription>Serviceable Addressable Market</CardDescription>
+            <CardTitle className="text-sm">{t('sam')}</CardTitle>
+            <CardDescription>{t('samDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-xl font-bold text-esrc-gold-600">{sam.toLocaleString()}</p>
@@ -260,8 +265,8 @@ export function MarketSizingCalculator() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">SOM</CardTitle>
-            <CardDescription>Serviceable Obtainable Market</CardDescription>
+            <CardTitle className="text-sm">{t('som')}</CardTitle>
+            <CardDescription>{t('somDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-xl font-bold text-esrc-green-800">{Math.round(som).toLocaleString()}</p>
@@ -283,13 +288,14 @@ type AIValidationResult = {
 }
 
 export function AIIdeaValidator() {
+  const t = useTranslations('toolkit.ai')
   const [idea, setIdea] = useState('')
   const [result, setResult] = useState<AIValidationResult | null>(null)
   const [loading, setLoading] = useState(false)
 
   const validate = async () => {
     if (!idea.trim() || idea.trim().split(/\s+/).length < 5) {
-      toast.error('Please describe your idea in at least a few sentences.')
+      toast.error(t('emptyIdeaError'))
       return
     }
     setLoading(true)
@@ -299,10 +305,10 @@ export function AIIdeaValidator() {
       if (res.success && res.data) {
         setResult(res.data as AIValidationResult)
       } else {
-        toast.error('Validation failed. Please try again.')
+        toast.error(t('validationFailed'))
       }
     } catch {
-      toast.error('Could not reach the AI service. Please try again.')
+      toast.error(t('serviceUnreachable'))
     } finally {
       setLoading(false)
     }
@@ -315,16 +321,16 @@ export function AIIdeaValidator() {
   return (
     <div className="bg-card p-6 rounded-lg border space-y-6">
       <div>
-        <Label className="text-sm font-medium">Describe your business idea</Label>
+        <Label className="text-sm font-medium">{t('describeIdea')}</Label>
         <textarea
           value={idea}
           onChange={(e) => setIdea(e.target.value)}
-          placeholder="e.g., A mobile platform connecting smallholder farmers in Cameroon to urban buyers, reducing post-harvest losses through real-time price discovery and logistics coordination..."
+          placeholder={t('ideaPlaceholder')}
           className="w-full h-32 p-3 border rounded-lg mt-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-esrc-green-600"
         />
       </div>
       <Button onClick={validate} disabled={loading || !idea.trim()} className="bg-esrc-green-600 hover:bg-esrc-green-700">
-        {loading ? 'Analysing with AI...' : 'Validate Business Idea'}
+        {loading ? t('analysing') : t('validate')}
       </Button>
       {result && (
         <div className="space-y-4">
@@ -332,15 +338,15 @@ export function AIIdeaValidator() {
           <div className={`grid grid-cols-3 gap-4 p-4 rounded-lg border ${scoreBg}`}>
             <div className="text-center">
               <p className={`text-3xl font-extrabold ${scoreColor}`}>{avgScore}<span className="text-sm font-normal text-muted-foreground">/100</span></p>
-              <p className="text-xs text-muted-foreground mt-1">Overall Score</p>
+              <p className="text-xs text-muted-foreground mt-1">{t('overallScore')}</p>
             </div>
             <div className="text-center">
               <p className="text-3xl font-extrabold text-esrc-green-700">{result.marketFit}<span className="text-sm font-normal text-muted-foreground">/10</span></p>
-              <p className="text-xs text-muted-foreground mt-1">Market Fit</p>
+              <p className="text-xs text-muted-foreground mt-1">{t('marketFit')}</p>
             </div>
             <div className="text-center">
               <p className="text-3xl font-extrabold text-esrc-gold-600">{result.feasibility}<span className="text-sm font-normal text-muted-foreground">/10</span></p>
-              <p className="text-xs text-muted-foreground mt-1">Feasibility</p>
+              <p className="text-xs text-muted-foreground mt-1">{t('feasibility')}</p>
             </div>
           </div>
           {/* Verdict */}
@@ -352,28 +358,28 @@ export function AIIdeaValidator() {
           {/* Strengths */}
           {result.strengths?.length > 0 && (
             <div>
-              <p className="text-sm font-semibold text-green-700 flex items-center gap-1 mb-2"><CheckCircle size={14} /> Strengths</p>
+              <p className="text-sm font-semibold text-green-700 flex items-center gap-1 mb-2"><CheckCircle size={14} /> {t('strengths')}</p>
               <ul className="space-y-1">{result.strengths.map((s, i) => <li key={i} className="text-sm text-foreground flex items-start gap-2"><span className="text-green-500 mt-0.5">•</span>{s}</li>)}</ul>
             </div>
           )}
           {/* Risks */}
           {result.risks?.length > 0 && (
             <div>
-              <p className="text-sm font-semibold text-red-700 flex items-center gap-1 mb-2"><AlertTriangle size={14} /> Risks</p>
+              <p className="text-sm font-semibold text-red-700 flex items-center gap-1 mb-2"><AlertTriangle size={14} /> {t('risks')}</p>
               <ul className="space-y-1">{result.risks.map((r, i) => <li key={i} className="text-sm text-foreground flex items-start gap-2"><span className="text-red-500 mt-0.5">•</span>{r}</li>)}</ul>
             </div>
           )}
           {/* Suggestions */}
           {result.suggestions?.length > 0 && (
             <div>
-              <p className="text-sm font-semibold text-blue-700 flex items-center gap-1 mb-2"><Lightbulb size={14} /> Suggestions</p>
+              <p className="text-sm font-semibold text-blue-700 flex items-center gap-1 mb-2"><Lightbulb size={14} /> {t('suggestions')}</p>
               <ul className="space-y-1">{result.suggestions.map((s, i) => <li key={i} className="text-sm text-foreground flex items-start gap-2"><span className="text-blue-500 mt-0.5">•</span>{s}</li>)}</ul>
             </div>
           )}
           {/* Next Steps */}
           {result.nextSteps?.length > 0 && (
             <div>
-              <p className="text-sm font-semibold text-purple-700 flex items-center gap-1 mb-2"><TrendingUp size={14} /> Next Steps</p>
+              <p className="text-sm font-semibold text-purple-700 flex items-center gap-1 mb-2"><TrendingUp size={14} /> {t('nextSteps')}</p>
               <ol className="space-y-1 list-decimal list-inside">{result.nextSteps.map((s, i) => <li key={i} className="text-sm text-foreground">{s}</li>)}</ol>
             </div>
           )}
@@ -383,9 +389,9 @@ export function AIIdeaValidator() {
   )
 }
 
-const PITCH_STEPS = ['Problem', 'Solution', 'Market', 'Traction', 'Ask']
-
 export function PitchDeckBuilder() {
+  const t = useTranslations('toolkit.pitch')
+  const PITCH_STEPS = ['problem', 'solution', 'market', 'traction', 'ask'] as const
   const [step, setStep] = useState(0)
   const [data, setData] = useState({
     problem: '',
@@ -395,8 +401,7 @@ export function PitchDeckBuilder() {
     ask: '',
   })
 
-  const keys = ['problem', 'solution', 'market', 'traction', 'ask'] as const
-  const currentKey = keys[step]
+  const currentKey = PITCH_STEPS[step]
   const setCurrent = (v: string) => setData((prev) => ({ ...prev, [currentKey]: v }))
 
   return (
@@ -410,38 +415,38 @@ export function PitchDeckBuilder() {
             onClick={() => setStep(i)}
             className="shrink-0"
           >
-            {i + 1}. {s}
+            {i + 1}. {t(`steps.${s}`)}
           </Button>
         ))}
       </div>
       <div>
-        <Label>Step {step + 1}: {PITCH_STEPS[step]}</Label>
+        <Label>{t('stepLabel', { n: step + 1, name: t(`steps.${PITCH_STEPS[step]}`) })}</Label>
         <textarea
           value={data[currentKey]}
           onChange={(e) => setCurrent(e.target.value)}
-          placeholder={`Describe your ${PITCH_STEPS[step].toLowerCase()}...`}
+          placeholder={t('describePlaceholder', { field: t(`steps.${PITCH_STEPS[step]}`).toLowerCase() })}
           className="w-full h-40 p-3 border rounded mt-2"
         />
       </div>
       <div className="flex gap-2">
         {step > 0 && (
           <Button variant="outline" onClick={() => setStep((s) => s - 1)}>
-            Previous
+            {t('previous')}
           </Button>
         )}
         {step < PITCH_STEPS.length - 1 ? (
-          <Button onClick={() => setStep((s) => s + 1)}>Next</Button>
+          <Button onClick={() => setStep((s) => s + 1)}>{t('next')}</Button>
         ) : (
           <Button className="bg-esrc-gold-500 hover:bg-esrc-gold-600 gap-2" onClick={() => {
-            const text = PITCH_STEPS.map((s, i) => `${s.toUpperCase()}\n${Object.values(data)[i] || '—'}`).join('\n\n')
+            const text = PITCH_STEPS.map((s, i) => `${t(`steps.${s}`).toUpperCase()}\n${Object.values(data)[i] || '—'}`).join('\n\n')
             localStorage.setItem('esrc_pitch_deck', JSON.stringify(data))
             const blob = new Blob([text], { type: 'text/plain' })
             const url = URL.createObjectURL(blob)
             const a = document.createElement('a'); a.href = url; a.download = 'pitch-deck.txt'; a.click()
             URL.revokeObjectURL(url)
-            toast.success('Pitch deck saved and exported!')
+            toast.success(t('exported'))
           }}>
-            <Download size={16} /> Export Pitch
+            <Download size={16} /> {t('exportPitch')}
           </Button>
         )}
       </div>
@@ -449,9 +454,9 @@ export function PitchDeckBuilder() {
   )
 }
 
-const REG_STEPS = ['Business Name', 'Sector', 'Legal Form', 'Contact', 'Confirm']
-
 export function BusinessRegistrationWizard() {
+  const t = useTranslations('toolkit.reg')
+  const REG_STEPS = ['name', 'sector', 'legalForm', 'contact', 'confirm'] as const
   const [step, setStep] = useState(0)
   const [form, setForm] = useState({
     name: '',
@@ -461,16 +466,9 @@ export function BusinessRegistrationWizard() {
     phone: '',
   })
 
-  const fields = [
-    { key: 'name' as const, label: 'Business Name', placeholder: 'Enter your business name' },
-    { key: 'sector' as const, label: 'Sector', placeholder: 'e.g. Agriculture, Tech' },
-    { key: 'legalForm' as const, label: 'Legal Form', placeholder: 'Sarl, SA, Sole proprietor' },
-    { key: 'email' as const, label: 'Email', placeholder: 'contact@business.cm' },
-    { key: 'phone' as const, label: 'Phone', placeholder: '+237 6XX XXX XXX' },
-  ]
-
-  const current = fields[step]
-  const setCurrent = (v: string) => current && setForm((prev) => ({ ...prev, [current.key]: v }))
+  const fieldKeys = ['name', 'sector', 'legalForm', 'email', 'phone'] as const
+  const currentFieldKey = fieldKeys[step]
+  const setCurrent = (v: string) => currentFieldKey && setForm((prev) => ({ ...prev, [currentFieldKey]: v }))
 
   return (
     <div className="bg-card p-6 rounded-lg border space-y-6">
@@ -483,17 +481,17 @@ export function BusinessRegistrationWizard() {
             onClick={() => setStep(i)}
             className="shrink-0"
           >
-            {i + 1}. {s}
+            {i + 1}. {t(`steps.${s}`)}
           </Button>
         ))}
       </div>
-      {current && (
+      {currentFieldKey && (
         <div>
-          <Label>{current.label}</Label>
+          <Label>{t(`fields.${currentFieldKey}.label`)}</Label>
           <Input
-            value={form[current.key]}
+            value={form[currentFieldKey]}
             onChange={(e) => setCurrent(e.target.value)}
-            placeholder={current.placeholder}
+            placeholder={t(`fields.${currentFieldKey}.placeholder`)}
             className="mt-2"
           />
         </div>
@@ -501,11 +499,11 @@ export function BusinessRegistrationWizard() {
       <div className="flex gap-2">
         {step > 0 && (
           <Button variant="outline" onClick={() => setStep((s) => s - 1)}>
-            Previous
+            {t('previous')}
           </Button>
         )}
         {step < REG_STEPS.length - 1 ? (
-          <Button onClick={() => setStep((s) => s + 1)}>Next</Button>
+          <Button onClick={() => setStep((s) => s + 1)}>{t('next')}</Button>
         ) : (
           <Button className="bg-esrc-gold-500 hover:bg-esrc-gold-600 gap-2" onClick={() => {
             localStorage.setItem('esrc_business_reg', JSON.stringify(form))
@@ -514,9 +512,9 @@ export function BusinessRegistrationWizard() {
             const url = URL.createObjectURL(blob)
             const a = document.createElement('a'); a.href = url; a.download = 'business-registration-checklist.txt'; a.click()
             URL.revokeObjectURL(url)
-            toast.success('Registration checklist exported! Bring this to the CFCE office.')
+            toast.success(t('exportedToast'))
           }}>
-            <Download size={16} /> Export Checklist
+            <Download size={16} /> {t('exportChecklist')}
           </Button>
         )}
       </div>
@@ -525,56 +523,57 @@ export function BusinessRegistrationWizard() {
 }
 
 export function InteractiveToolkit() {
+  const t = useTranslations('toolkit')
   return (
     <Tabs defaultValue="canvas" className="w-full">
       <TabsList className="flex flex-wrap h-auto gap-1 p-1">
-        <TabsTrigger value="canvas" className="gap-1 shrink-0">Canvas</TabsTrigger>
-        <TabsTrigger value="financial" className="gap-1 shrink-0">Financial</TabsTrigger>
-        <TabsTrigger value="loan" className="gap-1 shrink-0">Loan</TabsTrigger>
-        <TabsTrigger value="market" className="gap-1 shrink-0">Market</TabsTrigger>
-        <TabsTrigger value="ai" className="gap-1 shrink-0">AI Validator</TabsTrigger>
-        <TabsTrigger value="pitch" className="gap-1 shrink-0">Pitch Deck</TabsTrigger>
-        <TabsTrigger value="reg" className="gap-1 shrink-0">Registration</TabsTrigger>
-        <TabsTrigger value="funding" className="gap-1 shrink-0">Funding Directory</TabsTrigger>
+        <TabsTrigger value="canvas" className="gap-1 shrink-0">{t('tabs.canvas')}</TabsTrigger>
+        <TabsTrigger value="financial" className="gap-1 shrink-0">{t('tabs.financial')}</TabsTrigger>
+        <TabsTrigger value="loan" className="gap-1 shrink-0">{t('tabs.loan')}</TabsTrigger>
+        <TabsTrigger value="market" className="gap-1 shrink-0">{t('tabs.market')}</TabsTrigger>
+        <TabsTrigger value="ai" className="gap-1 shrink-0">{t('tabs.ai')}</TabsTrigger>
+        <TabsTrigger value="pitch" className="gap-1 shrink-0">{t('tabs.pitch')}</TabsTrigger>
+        <TabsTrigger value="reg" className="gap-1 shrink-0">{t('tabs.reg')}</TabsTrigger>
+        <TabsTrigger value="funding" className="gap-1 shrink-0">{t('tabs.funding')}</TabsTrigger>
       </TabsList>
 
       <TabsContent value="canvas" className="mt-6">
-        <h3 className="text-lg font-semibold mb-4">Business Model Canvas</h3>
+        <h3 className="text-lg font-semibold mb-4">{t('sectionTitles.canvas')}</h3>
         <BusinessModelCanvas />
       </TabsContent>
 
       <TabsContent value="financial" className="mt-6">
-        <h3 className="text-lg font-semibold mb-4">Financial Projections</h3>
+        <h3 className="text-lg font-semibold mb-4">{t('sectionTitles.financial')}</h3>
         <FinancialCalculator />
       </TabsContent>
 
       <TabsContent value="loan" className="mt-6">
-        <h3 className="text-lg font-semibold mb-4">Loan Readiness Score</h3>
+        <h3 className="text-lg font-semibold mb-4">{t('sectionTitles.loan')}</h3>
         <LoanReadinessScore />
       </TabsContent>
 
       <TabsContent value="market" className="mt-6">
-        <h3 className="text-lg font-semibold mb-4">Market Sizing Calculator</h3>
+        <h3 className="text-lg font-semibold mb-4">{t('sectionTitles.market')}</h3>
         <MarketSizingCalculator />
       </TabsContent>
 
       <TabsContent value="ai" className="mt-6">
-        <h3 className="text-lg font-semibold mb-4">AI Idea Validator</h3>
+        <h3 className="text-lg font-semibold mb-4">{t('sectionTitles.ai')}</h3>
         <AIIdeaValidator />
       </TabsContent>
 
       <TabsContent value="pitch" className="mt-6">
-        <h3 className="text-lg font-semibold mb-4">Pitch Deck Builder</h3>
+        <h3 className="text-lg font-semibold mb-4">{t('sectionTitles.pitch')}</h3>
         <PitchDeckBuilder />
       </TabsContent>
 
       <TabsContent value="reg" className="mt-6">
-        <h3 className="text-lg font-semibold mb-4">Business Registration Wizard</h3>
+        <h3 className="text-lg font-semibold mb-4">{t('sectionTitles.reg')}</h3>
         <BusinessRegistrationWizard />
       </TabsContent>
 
       <TabsContent value="funding" className="mt-6">
-        <h3 className="text-lg font-semibold mb-4">Funding Directory — Find Funding</h3>
+        <h3 className="text-lg font-semibold mb-4">{t('sectionTitles.funding')}</h3>
         <FundingDirectory />
       </TabsContent>
     </Tabs>

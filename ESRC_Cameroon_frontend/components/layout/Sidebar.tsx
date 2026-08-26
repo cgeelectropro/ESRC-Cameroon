@@ -105,7 +105,7 @@ export function Sidebar() {
             <span className="font-medium text-sm flex items-center gap-3">
               <span>Notifications</span>
             </span>
-            <NotificationBell />
+            <NotificationBell openDirection="up" />
           </div>
           <Link href="/dashboard/profile">
             <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground hover:bg-accent dark:hover:bg-accent/50">

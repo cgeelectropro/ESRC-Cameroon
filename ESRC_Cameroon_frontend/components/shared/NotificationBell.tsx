@@ -31,7 +31,7 @@ function timeAgo(date: string): string {
   return new Date(date).toLocaleDateString()
 }
 
-export function NotificationBell({ overHero = false }: { overHero?: boolean }) {
+export function NotificationBell({ overHero = false, openDirection = 'down' }: { overHero?: boolean; openDirection?: 'down' | 'up' }) {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -80,7 +80,12 @@ export function NotificationBell({ overHero = false }: { overHero?: boolean }) {
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-[360px] max-w-[calc(100vw-32px)] bg-popover text-popover-foreground rounded-xl shadow-2xl border border-border z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-150">
+        <div
+          className={cn(
+            'absolute right-0 w-[360px] max-w-[calc(100vw-32px)] bg-popover text-popover-foreground rounded-xl shadow-2xl border border-border z-50 overflow-hidden animate-in fade-in duration-150',
+            openDirection === 'up' ? 'bottom-full mb-2 slide-in-from-bottom-2' : 'top-full mt-2 slide-in-from-top-2',
+          )}
+        >
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-card">
             <div className="flex items-center gap-2">

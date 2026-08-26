@@ -136,6 +136,16 @@
     background-color: var(--input);
   }
 
+  /* Tailwind's line-clamp-* utilities truncate by line count but don't
+     break long unbroken words (e.g. "AGRIPRENEURSHIP" with no spaces),
+     so they overflow the card and get cut off by the parent's
+     overflow-hidden instead of wrapping. Applies wherever line-clamp is
+     used (course/event/publication/opportunity cards, admin tables, etc.) */
+  [class*='line-clamp-'] {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
   input::placeholder, textarea::placeholder {
     color: var(--muted-foreground);
     opacity: 1;
