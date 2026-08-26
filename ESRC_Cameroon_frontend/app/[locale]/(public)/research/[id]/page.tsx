@@ -135,7 +135,7 @@ export default function PublicationDetailPage() {
         <Navbar />
         <main className="flex-grow flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-2xl font-display text-esrc-dark mb-2">Publication Not Found</h1>
+            <h1 className="text-2xl font-display text-foreground mb-2">Publication Not Found</h1>
             <Link href={`/${locale}/research`}>
               <Button variant="outline">Back to Research</Button>
             </Link>
@@ -165,10 +165,10 @@ export default function PublicationDetailPage() {
           <Card className="shadow-lg">
             <CardContent className="pt-8 pb-8">
               <Badge className="mb-4">{(pub as { type?: string }).type?.replace('_', ' ') || 'Publication'}</Badge>
-              <h1 className="font-display text-3xl md:text-4xl font-bold text-esrc-dark mb-4">
+              <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
                 {pub.title}
               </h1>
-              <p className="text-esrc-mid mb-4">
+              <p className="text-muted-foreground mb-4">
                 {authors.join(', ')}
               </p>
               <p className="text-sm text-gray-500 mb-6">
@@ -178,7 +178,7 @@ export default function PublicationDetailPage() {
 
               <div className="prose max-w-none mb-8">
                 <h3 className="font-display text-lg font-semibold mb-2">Abstract</h3>
-                <p className="text-esrc-dark leading-relaxed">{pub.abstract}</p>
+                <p className="text-foreground leading-relaxed">{pub.abstract}</p>
               </div>
 
               <div className="flex flex-wrap gap-2 mb-8">

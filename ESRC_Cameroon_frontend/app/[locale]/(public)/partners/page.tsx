@@ -36,8 +36,8 @@ export default function PartnersPage() {
                     <Handshake className="text-esrc-green-700" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-esrc-dark">{p.name}</h3>
-                    <p className="text-sm text-esrc-mid">{p.area}</p>
+                    <h3 className="font-semibold text-foreground">{p.name}</h3>
+                    <p className="text-sm text-muted-foreground">{p.area}</p>
                   </div>
                 </CardContent>
               </Card>

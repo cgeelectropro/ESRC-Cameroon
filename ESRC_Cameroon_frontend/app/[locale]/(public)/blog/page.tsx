@@ -48,10 +48,10 @@ export default function BlogPage() {
                     <p className="text-sm text-muted-foreground mb-2">
                       {new Date(post.publishedAt).toLocaleDateString()} • {post.author}
                     </p>
-                    <h3 className="font-display text-lg font-semibold text-esrc-dark mb-2 line-clamp-2">
+                    <h3 className="font-display text-lg font-semibold text-foreground mb-2 line-clamp-2">
                       {post.title}
                     </h3>
-                    <p className="text-sm text-esrc-mid line-clamp-2">{post.excerpt}</p>
+                    <p className="text-sm text-muted-foreground line-clamp-2">{post.excerpt}</p>
                   </CardContent>
                 </Card>
               </Link>

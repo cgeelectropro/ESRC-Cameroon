@@ -74,7 +74,7 @@ export default function EventDetailPage() {
         <Navbar />
         <main className="flex-grow flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-2xl font-display text-esrc-dark mb-2">Event Not Found</h1>
+            <h1 className="text-2xl font-display text-foreground mb-2">Event Not Found</h1>
             <Link href={`/${locale}/events`}>
               <Button variant="outline">Back to Events</Button>
             </Link>
@@ -106,7 +106,7 @@ export default function EventDetailPage() {
             <div className="h-48 bg-gradient-to-br from-esrc-green-400 to-esrc-green-600" />
             <CardContent className="pt-8 pb-8">
               <Badge className="mb-4">{event.type || 'Event'}</Badge>
-              <h1 className="font-display text-3xl md:text-4xl font-bold text-esrc-dark mb-4">
+              <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
                 {event.title}
               </h1>
 
@@ -160,7 +160,7 @@ export default function EventDetailPage() {
 
               {event.description && (
                 <div className="prose max-w-none mb-8">
-                  <p className="text-esrc-dark leading-relaxed">{event.description}</p>
+                  <p className="text-foreground leading-relaxed">{event.description}</p>
                 </div>
               )}
 

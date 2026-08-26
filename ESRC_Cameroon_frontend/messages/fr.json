@@ -256,6 +256,16 @@
     "inProgress": "En Cours",
     "completed": "Terminé"
   },
+  "instructorCourses": {
+    "title": "Mes Cours",
+    "createCourse": "Créer un Cours",
+    "sections": "sections",
+    "lessons": "leçons",
+    "published": "Publié",
+    "draft": "Brouillon",
+    "edit": "Modifier",
+    "noCoursesYet": "Pas encore de cours. Créez votre premier cours pour commencer."
+  },
   "courses": {
     "free": "Gratuit",
     "title": "Explorez nos cours",

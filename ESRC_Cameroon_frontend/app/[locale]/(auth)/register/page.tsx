@@ -179,12 +179,58 @@ export default function RegisterPage() {
   }
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center px-4 py-8 relative"
-      style={{ backgroundImage: `url(${PLACEHOLDER_IMAGES.auth})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-    >
-      <div className="absolute inset-0 bg-background/75 backdrop-blur-3xl pointer-events-none" style={{backdropFilter:'blur(40px) saturate(180%)'}} />
-      <div className="relative z-10 w-full max-w-2xl glass-overlay rounded-2xl p-8 shadow-2xl">
+    <div className="min-h-screen flex">
+      {/* Left: Green brand panel - 40% */}
+      <div
+        className="hidden md:flex md:w-2/5 text-white flex-col justify-center p-12 relative"
+        style={{
+          backgroundImage: `url(${PLACEHOLDER_IMAGES.auth})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-esrc-green-900/75 via-esrc-green-800/60 to-esrc-green-700/55" />
+        <div className="relative z-10">
+          <h2 className="font-display text-3xl font-bold mb-4">{t('unlockingHuman')}</h2>
+          <p className="text-white/90 text-lg mb-10">{t('educationResearch')}</p>
+          <div className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-white/25 backdrop-blur-sm rounded-lg flex items-center justify-center border border-white/20">
+                <GraduationCap size={28} />
+              </div>
+              <div>
+                <p className="font-display text-2xl font-bold">50K+</p>
+                <p className="text-sm text-white/90">{t('learners')}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-white/25 backdrop-blur-sm rounded-lg flex items-center justify-center border border-white/20">
+                <BookOpen size={28} />
+              </div>
+              <div>
+                <p className="font-display text-2xl font-bold">200+</p>
+                <p className="text-sm text-white/90">{t('courses')}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-white/25 backdrop-blur-sm rounded-lg flex items-center justify-center border border-white/20">
+                <Users size={28} />
+              </div>
+              <div>
+                <p className="font-display text-2xl font-bold">500+</p>
+                <p className="text-sm text-white/90">{t('mentors')}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right: Registration form - 60% */}
+      <div className="flex-1 flex items-center justify-center p-8 bg-background overflow-y-auto">
+      <div className="w-full max-w-2xl py-8">
+        <div className="md:hidden text-center mb-8">
+          <h1 className="font-display text-2xl font-bold text-primary">NextGen</h1>
+        </div>
         <div className="mb-8">
           <h1 className="font-display text-3xl font-bold text-foreground mb-2">{t('joinNextGen')}</h1>
           <p className="text-muted-foreground">{t('createAccountDesc')}</p>
@@ -397,6 +443,7 @@ export default function RegisterPage() {
           {t('alreadyHaveAccount')}{' '}
           <Link href="/login" className="text-primary hover:text-primary/90 font-medium">{t('signInLink')}</Link>
         </p>
+      </div>
       </div>
     </div>
   )

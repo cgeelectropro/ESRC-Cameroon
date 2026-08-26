@@ -133,7 +133,7 @@ export default function CourseDetailPage() {
         <main className="flex-grow flex items-center justify-center">
           <div className="text-center">
             <AlertCircle size={48} className="mx-auto text-muted-foreground mb-4" />
-            <h1 className="text-2xl font-display text-esrc-dark mb-2">Course Not Found</h1>
+            <h1 className="text-2xl font-display text-foreground mb-2">Course Not Found</h1>
             <p className="text-muted-foreground">The course you're looking for doesn't exist.</p>
           </div>
         </main>
@@ -228,7 +228,7 @@ export default function CourseDetailPage() {
                       onError={(e) => { (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(course.instructor.name)}&background=1B5E20&color=fff` }}
                     />
                     <div>
-                      <h3 className="font-semibold text-esrc-dark">{course.instructor.name}</h3>
+                      <h3 className="font-semibold text-foreground">{course.instructor.name}</h3>
                       <p className="text-sm text-gray-600">{course.instructor.title}</p>
                       {course.instructor.organization && (
                         <p className="text-sm text-gray-600">{course.instructor.organization}</p>

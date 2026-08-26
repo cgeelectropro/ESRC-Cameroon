@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { InstructorSidebar } from '@/components/layout/InstructorSidebar'
@@ -15,6 +15,7 @@ type InstructorCourse = { id: string; title: string; sections: Array<{ id: strin
 
 export default function InstructorCoursesPage() {
   const locale = useLocale()
+  const t = useTranslations('instructorCourses')
   const [courses, setCourses] = useState<InstructorCourse[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -30,14 +31,14 @@ export default function InstructorCoursesPage() {
       <Navbar />
       <div className="flex flex-1 pt-20">
         <InstructorSidebar />
-        <main className="flex-1 section-padding">
+        <main className="flex-1 section-padding pb-28">
           <div className="container-width">
             <div className="flex justify-between items-center mb-8">
-              <h1 className="font-display text-4xl text-esrc-green-900">My Courses</h1>
+              <h1 className="font-display text-4xl text-esrc-green-900">{t('title')}</h1>
               <Link href={`/${locale}/instructor/courses/new`}>
                 <Button className="bg-esrc-gold-500 hover:bg-esrc-gold-700 text-esrc-dark">
                   <Plus size={18} className="mr-2" />
-                  Create Course
+                  {t('createCourse')}
                 </Button>
               </Link>
             </div>
@@ -55,14 +56,14 @@ export default function InstructorCoursesPage() {
                     <Card key={c.id}>
                       <CardContent className="pt-6 flex items-center justify-between">
                         <div>
-                          <h3 className="font-semibold text-esrc-dark">{c.title}</h3>
+                          <h3 className="font-semibold text-foreground">{c.title}</h3>
                           <p className="text-sm text-muted-foreground">
-                            {c.sections?.length ?? 0} sections • {lessonCount} lessons
-                            {c.isPublished ? ' • Published' : ' • Draft'}
+                            {c.sections?.length ?? 0} {t('sections')} • {lessonCount} {t('lessons')}
+                            {' • '}{c.isPublished ? t('published') : t('draft')}
                           </p>
                         </div>
                         <Link href={`/${locale}/instructor/courses/${c.id}/edit`}>
-                          <Button variant="outline">Edit</Button>
+                          <Button variant="outline">{t('edit')}</Button>
                         </Link>
                       </CardContent>
                     </Card>
@@ -71,7 +72,7 @@ export default function InstructorCoursesPage() {
               </div>
             )}
             {!loading && courses.length === 0 && (
-              <p className="text-center text-muted-foreground py-8">No courses yet. Create your first course to get started.</p>
+              <p className="text-center text-muted-foreground py-8">{t('noCoursesYet')}</p>
             )}
           </div>
         </main>

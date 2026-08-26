@@ -41,7 +41,7 @@ export default function OpportunitiesDashboardPage() {
                   <CardContent className="pt-6">
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-lg text-esrc-dark mb-1">
+                        <h3 className="font-semibold text-lg text-foreground mb-1">
                           {app.title}
                         </h3>
                         <p className="text-sm text-muted-foreground">
