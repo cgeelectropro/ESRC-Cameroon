@@ -47,6 +47,7 @@ export default function AdminCoursesPage() {
   const [pages, setPages] = useState(1)
   const PAGE_SIZE = 20
   const [loading, setLoading] = useState(true)
+  const [searchInput, setSearchInput] = useState('')
   const [search, setSearch] = useState('')
   const [activeTab, setActiveTab] = useState('ALL')
   const [categories, setCategories] = useState<CourseCategoryDef[]>([])
@@ -62,11 +63,30 @@ export default function AdminCoursesPage() {
   const someSelected = courses.some(c => selected.has(c.id))
   const toggleAll = () => { if (allSelected) { const n = new Set(selected); courses.forEach(c => n.delete(c.id)); setSelected(n) } else { const n = new Set(selected); courses.forEach(c => n.add(c.id)); setSelected(n) } }
   const toggleOne = (id: string) => { const n = new Set(selected); n.has(id) ? n.delete(id) : n.add(id); setSelected(n) }
+  // Mutations update local state directly instead of re-fetching the whole
+  // list, so the table doesn't flash a full loading spinner for a single
+  // row change.
+  const removeLocalCourse = (id: string) => {
+    setCourses((prev) => prev.filter((c) => c.id !== id))
+    setTotal((prev) => Math.max(0, prev - 1))
+  }
+
+  const applyLocalStatus = (id: string, status: string) => {
+    if (activeTab !== 'ALL' && activeTab !== status) {
+      removeLocalCourse(id)
+      return
+    }
+    setCourses((prev) => prev.map((c) => (c.id === id ? { ...c, status } : c)))
+  }
+
   const handleBulkTrash = async () => {
     if (!confirm(`Move ${selected.size} course(s) to trash?`)) return
     setBulkDeleting(true)
-    for (const id of selected) await apiClient.deleteAdminCourse(id)
-    setBulkDeleting(false); toast.success(`${selected.size} course(s) moved to trash`); setSelected(new Set()); load()
+    for (const id of selected) {
+      await apiClient.deleteAdminCourse(id)
+      applyLocalStatus(id, 'TRASH')
+    }
+    setBulkDeleting(false); toast.success(`${selected.size} course(s) moved to trash`); setSelected(new Set())
   }
 
   const load = async () => {
@@ -91,12 +111,17 @@ export default function AdminCoursesPage() {
     })
   }, [])
 
+  useEffect(() => {
+    const id = setTimeout(() => setSearch(searchInput), 400)
+    return () => clearTimeout(id)
+  }, [searchInput])
+
   useEffect(() => { setPage(1) }, [activeTab, search])
   useEffect(() => { load() }, [activeTab, search, page])
 
   const quickStatus = async (id: string, status: string) => {
     await apiClient.updateAdminCourse(id, { status })
-    load()
+    applyLocalStatus(id, status)
   }
 
   const trashCourse = async (course: CourseRow) => {
@@ -104,12 +129,12 @@ export default function AdminCoursesPage() {
     setActionLoading(true)
     await apiClient.deleteAdminCourse(course.id)
     setActionLoading(false)
-    load()
+    applyLocalStatus(course.id, 'TRASH')
   }
 
   const restoreCourse = async (id: string) => {
     await apiClient.updateAdminCourse(id, { status: 'DRAFT' })
-    load()
+    applyLocalStatus(id, 'DRAFT')
   }
 
   const permanentDelete = async (course: CourseRow) => {
@@ -117,7 +142,7 @@ export default function AdminCoursesPage() {
     setActionLoading(true)
     await apiClient.permanentDeleteAdminCourse(course.id)
     setActionLoading(false)
-    load()
+    removeLocalCourse(course.id)
   }
 
   return (
@@ -159,8 +184,8 @@ export default function AdminCoursesPage() {
         <div className="relative mb-4 max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <Input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Search courses..."
             className="pl-9 h-9"
           />

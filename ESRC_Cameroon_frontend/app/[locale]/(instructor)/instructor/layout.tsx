@@ -7,7 +7,7 @@ export default function InstructorLayout({
   children: React.ReactNode
 }) {
   return (
-    <DashboardGuard allowedRoles={['INSTRUCTOR']}>
+    <DashboardGuard allowedRoles={['INSTRUCTOR', 'ADMIN']}>
       {children}
       <AIAssistant />
     </DashboardGuard>
