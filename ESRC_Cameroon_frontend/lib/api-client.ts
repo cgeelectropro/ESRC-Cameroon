@@ -215,6 +215,11 @@ export const apiClient = {
     return handleResponse<unknown[]>(response)
   },
 
+  getMyAdvisorySessions: async () => {
+    const response = await authFetch(`${BASE}/advisory/my-sessions`, {})
+    return handleResponse<unknown[]>(response)
+  },
+
   bookAdvisory: async (data: object) => {
     const response = await authFetch(`${BASE}/advisory/book`, {
       method: 'POST',

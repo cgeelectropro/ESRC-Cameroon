@@ -4,11 +4,12 @@ import { Link, usePathname } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { NotificationBell } from '@/components/shared/NotificationBell'
-import { LayoutDashboard, BookOpen, BarChart3, DollarSign, ArrowLeft } from 'lucide-react'
+import { LayoutDashboard, BookOpen, BarChart3, DollarSign, CalendarClock, ArrowLeft } from 'lucide-react'
 
 const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', href: '/instructor/dashboard' },
   { icon: BookOpen, label: 'Courses', href: '/instructor/courses' },
+  { icon: CalendarClock, label: 'Sessions', href: '/instructor/sessions' },
   { icon: BarChart3, label: 'Analytics', href: '/instructor/analytics' },
   { icon: DollarSign, label: 'Revenue', href: '/instructor/revenue' },
 ]
