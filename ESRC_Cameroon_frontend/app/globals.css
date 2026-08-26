@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {
+@theme inline {
   --color-esrc-green-900: #1B5E20;
   --color-esrc-green-800: #166534;
   --color-esrc-green-700: #2E7D32;
@@ -19,6 +19,33 @@
   --color-esrc-mid: #555555;
   --color-esrc-light: #F5F5F5;
   --color-esrc-earth: #795548;
+
+  /* shadcn/ui semantic tokens — tailwind.config.ts mapped these, but that
+     file is ignored under Tailwind v4 without an @config directive, so
+     these were never actually generated as utilities (bg-popover,
+     text-foreground, bg-card, etc. compiled to nothing). Declaring them
+     here via @theme inline makes Tailwind generate the utilities while
+     still resolving through the live :root/.dark custom properties below,
+     so light/dark switching keeps working. */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 }
 
 /* Fonts loaded via next/font in layout.tsx; --font-display and --font-body are set there */
