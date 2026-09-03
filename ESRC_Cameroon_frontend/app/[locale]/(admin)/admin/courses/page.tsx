@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
-import { Search, Edit, Trash2, RotateCcw, AlertTriangle, Loader2, BookOpen, Square, CheckSquare } from 'lucide-react'
+import { Search, Edit, Trash2, AlertTriangle, Loader2, BookOpen, Square, CheckSquare } from 'lucide-react'
 import { apiClient } from '@/lib/api-client'
 import { toast } from 'sonner'
 import type { CourseCategoryDef } from '@/lib/types'
@@ -26,7 +26,7 @@ type CourseRow = {
   _count?: { enrollments?: number }
 }
 
-const STATUS_TABS = ['ALL', 'PUBLISHED', 'DRAFT', 'PENDING', 'PRIVATE', 'TRASH']
+const STATUS_TABS = ['ALL', 'PUBLISHED', 'DRAFT', 'PENDING', 'PRIVATE']
 
 const statusBadge = (s: string) => {
   const map: Record<string, string> = {
@@ -34,7 +34,6 @@ const statusBadge = (s: string) => {
     DRAFT: 'bg-gray-100 text-gray-700',
     PENDING: 'bg-amber-100 text-amber-800',
     PRIVATE: 'bg-blue-100 text-blue-800',
-    TRASH: 'bg-red-100 text-red-800',
   }
   return map[s] || 'bg-gray-100 text-gray-600'
 }
@@ -52,7 +51,6 @@ export default function AdminCoursesPage() {
   const [activeTab, setActiveTab] = useState('ALL')
   const [categories, setCategories] = useState<CourseCategoryDef[]>([])
   const [confirmDelete, setConfirmDelete] = useState<CourseRow | null>(null)
-  const [confirmPermDelete, setConfirmPermDelete] = useState<CourseRow | null>(null)
   const [actionLoading, setActionLoading] = useState(false)
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [bulkDeleting, setBulkDeleting] = useState(false)
@@ -79,14 +77,14 @@ export default function AdminCoursesPage() {
     setCourses((prev) => prev.map((c) => (c.id === id ? { ...c, status } : c)))
   }
 
-  const handleBulkTrash = async () => {
-    if (!confirm(`Move ${selected.size} course(s) to trash?`)) return
+  const handleBulkDelete = async () => {
+    if (!confirm(`Permanently delete ${selected.size} course(s)? This cannot be undone.`)) return
     setBulkDeleting(true)
     for (const id of selected) {
       await apiClient.deleteAdminCourse(id)
-      applyLocalStatus(id, 'TRASH')
+      removeLocalCourse(id)
     }
-    setBulkDeleting(false); toast.success(`${selected.size} course(s) moved to trash`); setSelected(new Set())
+    setBulkDeleting(false); toast.success(`${selected.size} course(s) deleted`); setSelected(new Set())
   }
 
   const load = async () => {
@@ -124,25 +122,13 @@ export default function AdminCoursesPage() {
     applyLocalStatus(id, status)
   }
 
-  const trashCourse = async (course: CourseRow) => {
+  const deleteCourseNow = async (course: CourseRow) => {
     setConfirmDelete(null)
     setActionLoading(true)
     await apiClient.deleteAdminCourse(course.id)
     setActionLoading(false)
-    applyLocalStatus(course.id, 'TRASH')
-  }
-
-  const restoreCourse = async (id: string) => {
-    await apiClient.updateAdminCourse(id, { status: 'DRAFT' })
-    applyLocalStatus(id, 'DRAFT')
-  }
-
-  const permanentDelete = async (course: CourseRow) => {
-    setConfirmPermDelete(null)
-    setActionLoading(true)
-    await apiClient.permanentDeleteAdminCourse(course.id)
-    setActionLoading(false)
     removeLocalCourse(course.id)
+    toast.success('Course deleted')
   }
 
   return (
@@ -155,8 +141,8 @@ export default function AdminCoursesPage() {
           </div>
           <div className="flex items-center gap-2">
             {selected.size > 0 && (
-              <Button onClick={handleBulkTrash} disabled={bulkDeleting} className="bg-destructive text-destructive-foreground hover:opacity-90 text-sm">
-                {bulkDeleting ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : <Trash2 className="w-4 h-4 mr-1" />}Trash {selected.size}
+              <Button onClick={handleBulkDelete} disabled={bulkDeleting} className="bg-destructive text-destructive-foreground hover:opacity-90 text-sm">
+                {bulkDeleting ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : <Trash2 className="w-4 h-4 mr-1" />}Delete {selected.size}
               </Button>
             )}
             <Link href={`/${locale}/instructor/courses/new`}>
@@ -253,7 +239,7 @@ export default function AdminCoursesPage() {
                             className="text-xs px-1 py-0.5 border border-border rounded text-muted-foreground bg-background"
                             title="Change status"
                           >
-                            {['PUBLISHED', 'DRAFT', 'PENDING', 'PRIVATE', 'TRASH'].map((s) => <option key={s} value={s}>{s}</option>)}
+                            {['PUBLISHED', 'DRAFT', 'PENDING', 'PRIVATE'].map((s) => <option key={s} value={s}>{s}</option>)}
                           </select>
                         </div>
                       </td>
@@ -265,20 +251,9 @@ export default function AdminCoursesPage() {
                               <Edit className="w-3.5 h-3.5" />
                             </Button>
                           </Link>
-                          {course.status === 'TRASH' ? (
-                            <>
-                              <Button variant="ghost" size="sm" onClick={() => restoreCourse(course.id)} className="h-8 w-8 p-0 text-green-600 hover:text-green-800" title="Restore">
-                                <RotateCcw className="w-3.5 h-3.5" />
-                              </Button>
-                              <Button variant="ghost" size="sm" onClick={() => setConfirmPermDelete(course)} className="h-8 w-8 p-0 text-red-600 hover:text-red-800" title="Delete permanently">
-                                <Trash2 className="w-3.5 h-3.5" />
-                              </Button>
-                            </>
-                          ) : (
-                            <Button variant="ghost" size="sm" onClick={() => setConfirmDelete(course)} className="h-8 w-8 p-0 text-red-500 hover:text-red-700" title="Move to trash">
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </Button>
-                          )}
+                          <Button variant="ghost" size="sm" onClick={() => setConfirmDelete(course)} className="h-8 w-8 p-0 text-red-500 hover:text-red-700" title="Delete">
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </Button>
                         </div>
                       </td>
                     </tr>
@@ -304,32 +279,16 @@ export default function AdminCoursesPage() {
           )}
         </div>
 
-        {/* Trash confirm */}
+        {/* Delete confirm */}
         <Dialog open={!!confirmDelete} onOpenChange={() => setConfirmDelete(null)}>
-          <DialogContent>
-            <DialogHeader><DialogTitle>Move to Trash?</DialogTitle></DialogHeader>
-            <p className="text-sm text-muted-foreground">
-              &quot;{confirmDelete?.title}&quot; will be moved to trash. You can restore it later from the Trash tab.
-            </p>
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setConfirmDelete(null)}>Cancel</Button>
-              <Button onClick={() => confirmDelete && trashCourse(confirmDelete)} disabled={actionLoading} className="bg-red-600 hover:bg-red-700 text-white">
-                {actionLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Move to Trash'}
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-
-        {/* Permanent delete confirm */}
-        <Dialog open={!!confirmPermDelete} onOpenChange={() => setConfirmPermDelete(null)}>
           <DialogContent>
             <DialogHeader><DialogTitle className="flex items-center gap-2"><AlertTriangle className="w-5 h-5 text-red-500" /> Permanently Delete?</DialogTitle></DialogHeader>
             <p className="text-sm text-muted-foreground">
-              &quot;{confirmPermDelete?.title}&quot; will be <strong>permanently deleted</strong> and cannot be recovered. This will also remove all enrollments and sections.
+              &quot;{confirmDelete?.title}&quot; will be <strong>permanently deleted</strong> and cannot be recovered. This will also remove all enrollments and sections.
             </p>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setConfirmPermDelete(null)}>Cancel</Button>
-              <Button onClick={() => confirmPermDelete && permanentDelete(confirmPermDelete)} disabled={actionLoading} className="bg-red-600 hover:bg-red-700 text-white">
+              <Button variant="outline" onClick={() => setConfirmDelete(null)}>Cancel</Button>
+              <Button onClick={() => confirmDelete && deleteCourseNow(confirmDelete)} disabled={actionLoading} className="bg-red-600 hover:bg-red-700 text-white">
                 {actionLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Delete Permanently'}
               </Button>
             </DialogFooter>

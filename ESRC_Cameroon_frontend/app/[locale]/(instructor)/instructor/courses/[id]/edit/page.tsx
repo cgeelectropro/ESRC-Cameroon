@@ -76,7 +76,7 @@ type LessonEditorState = {
 
 const LESSON_SUB_TYPES = ['VIDEO', 'PDF', 'TEXT']
 const LEVELS = ['BEGINNER', 'INTERMEDIATE', 'ADVANCED']
-const STATUSES = ['DRAFT', 'PENDING', 'PUBLISHED', 'PRIVATE', 'TRASH']
+const STATUSES = ['DRAFT', 'PENDING', 'PUBLISHED', 'PRIVATE']
 const LANGUAGES = ['EN', 'FR', 'BOTH']
 
 const DEFAULT_QUIZ_CONTENT: QuizContent = {

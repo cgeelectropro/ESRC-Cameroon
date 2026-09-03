@@ -481,10 +481,6 @@ export const apiClient = {
     const response = await authFetch(`${BASE}/admin/courses/${id}`, { method: 'DELETE' })
     return handleResponse<Record<string, unknown>>(response)
   },
-  permanentDeleteAdminCourse: async (id: string) => {
-    const response = await authFetch(`${BASE}/admin/courses/${id}/permanent`, { method: 'DELETE' })
-    return handleResponse<Record<string, unknown>>(response)
-  },
   // Events
   getAdminEvents: async (params?: Record<string, string>) => {
     const response = await authFetch(`${BASE}/admin/events?${new URLSearchParams(params || {})}`, {})
