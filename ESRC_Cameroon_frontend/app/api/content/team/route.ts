@@ -2,7 +2,7 @@ import { proxyGet, proxyPost } from '@/lib/nest-proxy'
 import { NextRequest } from 'next/server'
 
 export async function GET(request: NextRequest) {
-  return proxyGet('/content/team', request)
+  return proxyGet('/content/team', request, { cache: { maxAge: 60, staleWhileRevalidate: 600 } })
 }
 
 export async function POST(request: Request) {

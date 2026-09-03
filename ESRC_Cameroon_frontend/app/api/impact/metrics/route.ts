@@ -9,5 +9,6 @@ export async function GET(request: Request) {
   return proxyGet('/content/impact-metrics', request, {
     transformResponse: transformMetricsResponse as (d: unknown) => unknown,
     forwardAuth: false,
+    cache: { maxAge: 60, staleWhileRevalidate: 600 },
   })
 }

@@ -11,9 +11,15 @@ const getBaseUrl = () => {
 export type ProxyOptions = {
   transformResponse?: (data: unknown) => unknown
   forwardAuth?: boolean
+  // Only set this for endpoints that are public and NOT personalized per
+  // user (course/event/content listings, etc.) — it lets Vercel's CDN and
+  // browsers cache the response, so repeat visits skip the Render backend
+  // entirely instead of waking a cold instance. Never set it alongside
+  // forwardAuth, and never on a route whose response varies by requester.
+  cache?: { maxAge: number; staleWhileRevalidate?: number }
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ProxyOptionsLoose = { transformResponse?: (data: any) => any; forwardAuth?: boolean }
+export type ProxyOptionsLoose = { transformResponse?: (data: any) => any; forwardAuth?: boolean; cache?: { maxAge: number; staleWhileRevalidate?: number } }
 
 export async function proxyToNest(
   method: string,
@@ -84,9 +90,15 @@ export async function proxyToNest(
     data = options.transformResponse(data)
   }
 
+  const responseHeaders: Record<string, string> = { 'Content-Type': 'application/json' }
+  if (options.cache && method === 'GET' && res.ok) {
+    const swr = options.cache.staleWhileRevalidate ?? options.cache.maxAge
+    responseHeaders['Cache-Control'] = `public, s-maxage=${options.cache.maxAge}, stale-while-revalidate=${swr}`
+  }
+
   return Response.json(data, {
     status: res.status,
-    headers: { 'Content-Type': 'application/json' },
+    headers: responseHeaders,
   })
 }
 

@@ -53,7 +53,10 @@ async function fetchCoursesFromSupabase(): Promise<Response> {
 export async function GET(request: Request) {
   const url = new URL(request.url)
   const path = `/courses?${url.searchParams}`
-  const nestRes = await proxyGet(path, request, { transformResponse: transformCoursesResponse as (d: unknown) => unknown })
+  const nestRes = await proxyGet(path, request, {
+    transformResponse: transformCoursesResponse as (d: unknown) => unknown,
+    cache: { maxAge: 60, staleWhileRevalidate: 600 },
+  })
 
   // If NestJS is unreachable or returned an error, fall back to Supabase
   if (nestRes.status === 503 || nestRes.status >= 500) {

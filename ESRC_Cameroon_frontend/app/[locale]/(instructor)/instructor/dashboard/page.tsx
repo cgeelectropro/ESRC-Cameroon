@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import { apiClient } from '@/lib/api-client'
@@ -10,15 +11,13 @@ import { InstructorSidebar } from '@/components/layout/InstructorSidebar'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Users, DollarSign, BookOpen, Star } from 'lucide-react'
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts'
+
+// Keeps recharts (a large dependency) out of this route's main bundle — it's
+// only needed once the revenue card actually renders.
+const RevenueChart = dynamic(
+  () => import('@/components/shared/RevenueChart').then((m) => m.RevenueChart),
+  { ssr: false, loading: () => <div className="h-64 w-full animate-pulse bg-muted rounded" /> }
+)
 
 export default function InstructorDashboardPage() {
   const locale = useLocale()
@@ -102,17 +101,7 @@ export default function InstructorDashboardPage() {
                 <CardDescription>Monthly earnings from course enrollments</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={revenue}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <Tooltip />
-                      <Line type="monotone" dataKey="revenue" stroke="var(--esrc-green-700)" strokeWidth={2} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
+                <RevenueChart revenue={revenue} />
               </CardContent>
             </Card>
 

@@ -19,7 +19,10 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params
-  return proxyGet(`/courses/${id}`, request, { transformResponse: transform as (d: unknown) => unknown })
+  return proxyGet(`/courses/${id}`, request, {
+    transformResponse: transform as (d: unknown) => unknown,
+    cache: { maxAge: 60, staleWhileRevalidate: 600 },
+  })
 }
 
 export async function PATCH(

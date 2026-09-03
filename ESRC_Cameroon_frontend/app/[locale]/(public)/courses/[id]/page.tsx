@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 import { useParams } from 'next/navigation'
 import { useRouter, Link } from '@/i18n/navigation'
 import { apiClient } from '@/lib/api-client'
@@ -12,8 +13,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { RatingStars } from '@/components/shared/RatingStars'
 import { PaymentModal } from '@/components/shared/PaymentModal'
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts'
 import { PlayCircle, Clock, Users, AlertCircle, Star } from 'lucide-react'
+
+// Keeps recharts (a large dependency) out of this route's main bundle —
+// it's only needed once the rating-breakdown card actually renders.
+const RatingBreakdownChart = dynamic(
+  () => import('@/components/shared/RatingBreakdownChart').then((m) => m.RatingBreakdownChart),
+  { ssr: false, loading: () => <div className="h-48 w-full animate-pulse bg-muted rounded" /> }
+)
 import type { Course, Review, CourseCategoryDef } from '@/lib/types'
 
 export default function CourseDetailPage() {
@@ -191,25 +198,7 @@ export default function CourseDetailPage() {
                     <CardDescription>Distribution of reviews by star rating</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="h-48 w-full">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <BarChart
-                          data={[5, 4, 3, 2, 1]
-                            .filter((r) => (course.ratingBreakdown ?? {})[r] != null)
-                            .map((stars) => ({
-                              stars: `${stars} ★`,
-                              count: (course.ratingBreakdown ?? {})[stars] ?? 0,
-                              fill: 'var(--esrc-green-800)',
-                            }))}
-                          layout="vertical"
-                          margin={{ top: 0, right: 20, left: 60, bottom: 0 }}
-                        >
-                          <XAxis type="number" />
-                          <YAxis type="category" dataKey="stars" width={50} />
-                          <Bar dataKey="count" fill="var(--esrc-green-800)" radius={[0, 4, 4, 0]} />
-                        </BarChart>
-                      </ResponsiveContainer>
-                    </div>
+                    <RatingBreakdownChart ratingBreakdown={course.ratingBreakdown} />
                   </CardContent>
                 </Card>
               )}

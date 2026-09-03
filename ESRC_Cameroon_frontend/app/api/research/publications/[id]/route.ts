@@ -12,5 +12,6 @@ export async function GET(
   const { id } = await params
   return proxyGet(`/research/publications/${id}`, request, {
     transformResponse: transformPublicationResponse as (d: unknown) => unknown,
+    cache: { maxAge: 60, staleWhileRevalidate: 600 },
   })
 }

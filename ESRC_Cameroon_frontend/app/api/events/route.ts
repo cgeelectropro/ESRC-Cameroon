@@ -14,5 +14,8 @@ const transformEventsResponse = (res: { data?: unknown }) => {
 export async function GET(request: Request) {
   const url = new URL(request.url)
   const path = `/events?${url.searchParams}`
-  return proxyGet(path, request, { transformResponse: transformEventsResponse as (d: unknown) => unknown })
+  return proxyGet(path, request, {
+    transformResponse: transformEventsResponse as (d: unknown) => unknown,
+    cache: { maxAge: 60, staleWhileRevalidate: 600 },
+  })
 }
